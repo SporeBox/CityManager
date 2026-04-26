@@ -1,0 +1,9 @@
+2026-04-21 10:37:18	alice	manager	add
+2026-04-21 10:38:01	bob	inspector	add
+2026-04-21 10:38:16	bob	inspector	list
+2026-04-21 10:38:41	alice	manager	view
+2026-04-21 10:38:49	alice	inspector	view
+2026-04-21 10:39:49	bob	inspector	filter
+2026-04-21 10:40:30	bob	inspector	list
+2026-04-21 10:40:59	alice	manager	remove_report
+2026-04-21 10:41:04	bob	inspector	list

@@ -8,10 +8,8 @@
 #include "permissions.h"
 #include "log.h"
 
-// Întoarce 1 dacă totul e ok, 0 dacă e eroare
 int parse_args(int argc, char **argv,
                char **role, char **user, char **command, char **args_out[]) {
-    // Forma minimă: city_manager --role X --user Y --command [...]
     if (argc < 6) {
         write(STDERR_FILENO, "ERROR: not enough arguments\n", 28);
         return 0;
@@ -34,10 +32,8 @@ int parse_args(int argc, char **argv,
     }
     *user = argv[4];
 
-    // Comanda e argv[5]: --add, --list, etc. (cu sau fără --)
     *command = argv[5];
 
-    // Restul argumentelor (district, report_id, etc.)
     *args_out = &argv[6];
 
     return 1;
@@ -50,7 +46,6 @@ int main(int argc, char **argv) {
     if (!parse_args(argc, argv, &role, &user, &command, &extra_args))
         return 1;
 
-    // Numărul de argumente rămase după command
     int extra_count = argc - 6;
 
     if (strcmp(command, "--add") == 0) {
@@ -96,7 +91,6 @@ int main(int argc, char **argv) {
             write(STDERR_FILENO, "ERROR: --filter requires <district> <condition...>\n", 51);
             return 1;
         }
-        // extra_args[0] = district, extra_args[1..] = conditions
         return filter_reports(extra_args[0], role, user,
                               (const char **)&extra_args[1], extra_count - 1);
     } else {

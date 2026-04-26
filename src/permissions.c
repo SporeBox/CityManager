@@ -10,7 +10,7 @@ int check_permissions(const char *path, mode_t expected) {
         perror("stat");
         return 0;
     }
-    // Comparăm doar cei 9 biți de permisiune (maschează tipul fișierului)
+
     mode_t actual = st.st_mode & 0777;
     return actual == expected;
 }
@@ -23,7 +23,6 @@ int set_permissions(const char *path, mode_t mode) {
     return 0;
 }
 
-// Construim string-ul bit cu bit
 void mode_to_string(mode_t mode, char *out) {
     out[0] = (mode & S_IRUSR) ? 'r' : '-';
     out[1] = (mode & S_IWUSR) ? 'w' : '-';

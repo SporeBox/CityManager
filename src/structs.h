@@ -18,8 +18,8 @@ typedef struct {
     int    rapID;
     char   inspName[30];
     Coord  coordinates;
-    char   issue[30];       // "road", "lighting", "flooding", etc.
-    int    sevLvl;          // 1=minor, 2=moderate, 3=critical
+    char   issue[30];
+    int    sevLvl;
     Timestamp time;
     char   description[200];
 } Report;
