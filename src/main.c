@@ -93,7 +93,13 @@ int main(int argc, char **argv) {
         }
         return filter_reports(extra_args[0], role, user,
                               (const char **)&extra_args[1], extra_count - 1);
-    } else {
+    } else if (strcmp(command, "--remove_district") == 0){
+		if(extra_count < 1) {
+			write(STDERR_FILENO, "ERROR: --remove_district requires <district>\n", 51);
+            return 1;
+		}
+		return remove_district(role, extra_args[0]);
+	}else {
         write(STDERR_FILENO, "ERROR: unknown command\n", 23);
         return 1;
     }

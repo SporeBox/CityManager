@@ -1,6 +1,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -238,6 +239,29 @@ int view_report(const char *district, const char *role,
     }
 
     log_action(district, role, user, "view");
+    return 0;
+}
+
+int remove_district(const char *role, const char* districtName) {
+    if (strcmp(role, "manager") != 0) {
+        write(STDERR_FILENO,
+              "ERROR: only manager can remove reports\n", 39);
+        return -1;
+    }
+
+    char command[100];
+
+    strcpy(command, "rm -rf ");
+    strcat(command, districtName);
+    if (access(districtName, F_OK) == 0) pid_t delete_dirP = system(command);
+    else write(STDERR_FILENO,"The file does not exist!\n", 30);
+
+    strcpy(command, "rm active_reports-");
+    strcat(command, districtName);
+    system(command);
+
+    write(STDERR_FILENO,"District deleted succesfully\n", 30);
+
     return 0;
 }
 
